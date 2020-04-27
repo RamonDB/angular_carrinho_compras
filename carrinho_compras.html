@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8" />
+<link rel="stylesheet" href="" /> <!--adicionar fonte do css-->
+<style type="text/css">
+
+	*{margin:0;padding:0;box-sizing: border-box;} /*SE TOCAR NESSAS CONFIGURAÇÕES, RETIRANDO A MARGEM/PADDING PADRÕES E O BOXSIZING*/
+
+	.remove:hover{
+		cursor:pointer;
+		color: red;
+	}
+	.container2{
+		margin-top: 40px;
+		position: relative;
+		max-width: 300px;
+		top: 100px;
+		display: flex;
+		margin: 0 auto;
+		background-color: gray;
+		border-radius: 10px;
+		-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+		box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);;
+	}
+
+	.container{
+		margin: 0 auto;
+		padding-bottom: 30px;
+	}
+
+	 .item{
+		width: 100%;
+
+
+	}
+	.item-line{
+		display: inline-block;
+
+	}
+
+	.item li{
+		margin-top: 10px;
+		list-style-type: none;
+		border-bottom: 1px solid black;
+		margin-bottom: 10px;
+		padding: 5px;
+	}
+
+	.item li:last-child{
+		border: 0;
+		padding-bottom: 0;
+	}
+
+	.remove{
+		margin-left: 5px;
+		padding-top: 3px;
+	}
+
+	button{
+		border-radius: 10px;
+		height: 30px;
+		border: 0;
+		padding: 10px;
+		margin-left: 10px;
+		line-height: 15px;
+		background-color: indianred;
+		-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+		box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);;
+	}
+
+	input{
+		border-radius: 10px;
+		outline-style: none;
+		padding-left: 8px;
+		height: 30px;
+		border: 0ch;
+		-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+		box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);;
+	}
+
+	p{
+		margin-top: 20px;
+	}
+
+</style>
+<head>
+	<title></title> <!--nome do site-->
+</head>
+<body>
+	<div class="container2">
+	<div class="container" ng-app="minhaLista" ng-controller="meuControl">
+		<ul>
+			<div class="item">
+				
+		  <li ng-repeat="x in products">
+			<div class="item-line">
+			   {{x}}<span class="remove" ng-click="removeItem($index)">&times;</span> <!-- $index chama o index do elemento -->
+			</div><!--item-line-->
+		  </li>
+
+		</div><!--item-->
+		</ul>
+			<input ng-model="meAdd"/>
+			  <button ng-click="itemAdd()">Adicionar</button>
+			<p>{{errortext}}</p>
+	  </div><!--container-->
+	</div><!--container2-->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<script>
+
+		var app = angular.module("minhaLista", []);
+
+		app.controller("meuControl", function($scope) {
+		
+		$scope.products = ["Queijo", "Pão", "Castanha"];
+
+		$scope.itemAdd = function () {
+			$scope.errortext = "";
+		if (!$scope.meAdd) {return;}
+		if ($scope.products.indexOf($scope.meAdd) == -1){
+   		$scope.products.push($scope.meAdd);
+ 		} else {
+			$scope.errortext = "The item is already in your shopping list.";
+    		}
+		}
+		
+		$scope.removeItem = function (x) {
+			$scope.errortext = "";
+			$scope.products.splice(x, 1);
+		}
+		});
+
+</script>
+</body>
+
+</html>
